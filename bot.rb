@@ -1,7 +1,6 @@
 # This code was generated automatically by ChatGPT itself.
 
 require 'discordrb'
-require 'ruby-openai'
 
 # Set up a Discord client and authenticate with your bot token
 client = Discordrb::Commands::CommandBot.new(token: ENV['DISCORD_TOKEN'], prefix: '!', help_command: false)
