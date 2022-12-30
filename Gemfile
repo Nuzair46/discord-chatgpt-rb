@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
 
 gem 'discordrb'
-
-gem 'openai'
+gem "ruby-openai"
