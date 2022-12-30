@@ -7,7 +7,7 @@ require 'openai'
 client = Discordrb::Commands::CommandBot.new(token: ENV['DISCORD_TOKEN'], prefix: '!', help_command: false)
 
 # Set up the OpenAI API client with your API key
-OpenAI.api_key = ENV['OPENAI_API_KEY']
+OpenAI::Client.new(api_key: ENV['OPENAI_API_KEY'])
 
 # Define a command that generates a response using ChatGPT
 client.command(:chatgpt) do |event, *prompt|
