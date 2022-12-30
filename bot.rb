@@ -6,7 +6,9 @@ require 'ruby/openai'
 # Set up a Discord client and authenticate with your bot token
 client = Discordrb::Commands::CommandBot.new(token: ENV['DISCORD_TOKEN'], prefix: '!', help_command: false)
 
-client.update_status('online', 'by Red', 0, false, 1)
+client.ready do
+  client.update_status('online', 'by Red', 0, false, 1)
+end
 
 # Set up the OpenAI API client with your API key
 openai_client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
