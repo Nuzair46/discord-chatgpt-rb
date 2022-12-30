@@ -10,19 +10,19 @@ client = Discordrb::Commands::CommandBot.new(token: ENV['DISCORD_TOKEN'], prefix
 openai_client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
 
 # Define a command that generates a response using ChatGPT
-client.command(:chatgpt) do |event, *prompt|
+client.command(:chat) do |event, *prompt|
   # Use the OpenAI API to generate a response
 
   response = openai_client.completions(
     parameters: {
-      model: 'chatgpt',
+      model: 'text-davinci-003',
       prompt: prompt.join(' '),
       max_tokens: 1024
     }
   )
 
   # Send the response back to the channel
-  event.respond(response.text)
+  event.respond response['choices'][0]['text']
 end
 
 # Run the bot
