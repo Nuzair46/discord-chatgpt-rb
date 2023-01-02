@@ -1,4 +1,4 @@
-# The initial commit code was generated automatically by ChatGPT itself.
+# This code was generated automatically by ChatGPT itself.
 
 require 'discordrb'
 require 'ruby/openai'
@@ -7,7 +7,7 @@ require 'ruby/openai'
 client = Discordrb::Commands::CommandBot.new(token: ENV['DISCORD_TOKEN'], prefix: '!', help_command: false)
 
 client.ready do
-  client.update_status('online', 'by Red', 0, false, 1)
+  client.stream('Red', 'https://rednek46.me')
 end
 
 # Set up the OpenAI API client with your API key
@@ -29,9 +29,10 @@ client.command(:chat) do |event, *prompt|
   event.respond response['choices'][0]['text']
 end
 
+# use dalle to generate images
 client.command(:generate) do |event, *prompt|
   response = openai_client.images.generate(parameters: { prompt: prompt.join(' ') })
-  event.respond response['data'].pluck('url')
+  event.respond response.dig('data', 0, 'url')
 end
 
 # Run the bot
