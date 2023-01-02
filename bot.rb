@@ -30,7 +30,7 @@ client.command(:chat, description: 'Chat with ChatGPT') do |event, *prompt|
 end
 
 # use dalle to generate images
-client.command(:generate, description: 'Generate image with DALLE2')) do |event, *prompt|
+client.command(:generate, description: 'Generate image with DALLE2') do |event, *prompt|
   response = openai_client.images.generate(parameters: { prompt: prompt.join(' ') })
   event.respond response.dig('data', 0, 'url')
 end
