@@ -29,5 +29,10 @@ client.command(:chat) do |event, *prompt|
   event.respond response['choices'][0]['text']
 end
 
+client.command(:generate) do |event, *prompt|
+  response = openai_client.images.generate(parameters: { prompt: prompt.join(' ') })
+  event.respond response['data'].pluck('url')
+end
+
 # Run the bot
 client.run
