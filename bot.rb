@@ -26,7 +26,7 @@ client.command(:chat, description: 'Chat with ChatGPT') do |event, *prompt|
   )
 
   # Send the response back to the channel
-  event.respond response['choices'][0]['text']
+  event.message.reply response['choices'][0]['text']
 end
 
 # use dalle to generate images
