@@ -32,7 +32,7 @@ end
 # use dalle to generate images
 client.command(:generate, description: 'Generate image with DALLE2') do |event, *prompt|
   response = openai_client.images.generate(parameters: { prompt: prompt.join(' ') })
-  event.respond response.dig('data', 0, 'url')
+  event.message.reply response.dig('data', 0, 'url')
 end
 
 # Run the bot
