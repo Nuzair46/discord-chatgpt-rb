@@ -26,13 +26,13 @@ client.command(:chat, description: 'Chat with ChatGPT') do |event, *prompt|
   )
 
   # Send the response back to the channel
-  event.message.reply response['choices'][0]['text']
+  event.message.reply! response['choices'][0]['text']
 end
 
 # use dalle to generate images
 client.command(:generate, description: 'Generate image with DALLE2') do |event, *prompt|
   response = openai_client.images.generate(parameters: { prompt: prompt.join(' ') })
-  event.message.reply response.dig('data', 0, 'url')
+  event.message.reply! response.dig('data', 0, 'url')
 end
 
 # Run the bot
