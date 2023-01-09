@@ -7,7 +7,7 @@ require 'ruby/openai'
 client = Discordrb::Commands::CommandBot.new(token: ENV['DISCORD_TOKEN'], prefix: '!')
 
 client.ready do
-  client.game 'by Red | !help', 'https://rednek46.me'
+  client.game = 'by Red | !help', 'https://rednek46.me'
 end
 
 # setting up bucket
