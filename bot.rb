@@ -46,6 +46,7 @@ client.command(:generate, description: 'Generate image with DALLE2') do |event, 
   next if rate_limited?(event)
 
   response = openai_client.images.generate(parameters: { prompt: prompt.join(' ') })
+  puts response
   event.message.reply! response.dig('data', 0, 'url')
 rescue RestClient::BadRequest
   event.message.reply! 'Image generation failed, Probably you asked something too weird.'
