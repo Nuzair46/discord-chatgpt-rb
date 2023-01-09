@@ -68,7 +68,7 @@ def owner?(user_id)
 end
 
 def rate_limit_server_whitelist(server_id)
-  server_list = ENV['RATE_LIMIT_SERVER_WHITELIST'].split(',') || []
+  server_list = ENV['RATE_LIMIT_SERVER_WHITELIST']&.split(',') || []
   server_list.include?(server_id)
 end
 
