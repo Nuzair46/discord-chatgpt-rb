@@ -34,6 +34,7 @@ client.command(:chat, description: 'Chat with ChatGPT') do |event, *prompt|
 
   # Send the response back to the channel
   begin
+    puts response
     event.message.reply! response['choices'][0]['text']
   rescue Discordrb::Errors::MessageTooLong => e
     event.message.reply! e.message
