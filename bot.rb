@@ -11,9 +11,9 @@ client.ready do
 end
 
 # setting up bucket
-rate_limiter = Discordrb::Commands::SimpleRateLimiter.new
-rate_limiter.bucket :api_limit, limit: ENV['RATE_LIMIT'], time_span: ENV['RATE_LIMIT_SPAN'],
-                                delay: ENV['RATE_LIMIT_DELAY']
+@rate_limiter = Discordrb::Commands::SimpleRateLimiter.new
+@rate_limiter.bucket :api_limit, limit: ENV['RATE_LIMIT'], time_span: ENV['RATE_LIMIT_SPAN'],
+                                 delay: ENV['RATE_LIMIT_DELAY']
 
 # Set up the OpenAI API client with your API key
 openai_client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
@@ -42,7 +42,7 @@ end
 
 # use dalle to generate images
 client.command(:generate, description: 'Generate image with DALLE2') do |event, *prompt|
-  rate_limited?(event)
+  next if rate_limited?(event)
 
   response = openai_client.images.generate(parameters: { prompt: prompt.join(' ') })
   event.message.reply! response.dig('data', 0, 'url')
@@ -53,8 +53,8 @@ end
 def rate_limited?(event)
   return false if skip_rate_limit?(event)
 
-  time = rate_limiter.rate_limited?(:api_limit, event.user)
-  return unless time
+  time = @rate_limiter.rate_limited?(:api_limit, event.user)
+  return false unless time
 
   event.message.reply! "You are being rate limited. Please try again after #{time} seconds."
 end
