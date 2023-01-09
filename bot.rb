@@ -3,6 +3,8 @@
 require 'discordrb'
 require 'ruby/openai'
 
+attr_accessor :rate_limiter
+
 # Set up a Discord client and authenticate with your bot token
 client = Discordrb::Commands::CommandBot.new(token: ENV['DISCORD_TOKEN'], prefix: '!')
 
