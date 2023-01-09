@@ -12,7 +12,8 @@ end
 
 # setting up bucket
 rate_limitter = Discordrb::Commands::SimpleRateLimiter.new
-rate_limitter.bucket :api_limit, limit: 10, time_span: 1.day.seconds.to_i, delay: 10.minutes.seconds.to_i
+rate_limitter.bucket :api_limit, limit: ENV['RATE_LIMIT'], time_span: ENV['RATE_LIMIT_SPAN'],
+                                 delay: ENV['RATE_LIMIT_DELAY']
 
 # Set up the OpenAI API client with your API key
 openai_client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
