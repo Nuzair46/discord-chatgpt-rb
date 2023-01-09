@@ -60,7 +60,7 @@ def rate_limited?(event)
 end
 
 def skip_rate_limit?(event)
-  owner?(event.user.id) || rate_limit_server_whitelist.include?(event.server.id)
+  owner?(event.user.id) || rate_limit_server_whitelist(event.server.id)
 end
 
 def owner?(user_id)
