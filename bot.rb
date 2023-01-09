@@ -41,7 +41,7 @@ end
 
 # use dalle to generate images
 client.command(:generate, description: 'Generate image with DALLE2') do |event, *prompt|
-  next if rate_limited?(event)
+  rate_limited?(event)
 
   response = openai_client.images.generate(parameters: { prompt: prompt.join(' ') })
   event.message.reply! response.dig('data', 0, 'url')
@@ -52,7 +52,10 @@ end
 def rate_limited?(event)
   return false if skip_rate_limit?(event)
 
-  rate_limiter.rate_limited?(:api_limit, event.user)
+  time = rate_limiter.rate_limited?(:api_limit, event.user)
+  return unless time
+
+  event.message.reply! "You are being rate limited. Please try again after #{time} seconds."
 end
 
 def skip_rate_limit?(event)
