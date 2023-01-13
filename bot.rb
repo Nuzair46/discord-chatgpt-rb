@@ -1,4 +1,4 @@
-# This code was generated automatically by ChatGPT itself.
+# Thintitial commit code was generated automatically by ChatGPT itself.
 
 require 'discordrb'
 require 'ruby/openai'
