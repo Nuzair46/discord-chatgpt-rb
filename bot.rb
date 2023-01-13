@@ -66,12 +66,12 @@ def skip_rate_limit?(event)
 end
 
 def owner?(user_id)
-  user_id == ENV['OWNER_ID']
+  user_id.to_s == ENV['OWNER_ID']
 end
 
 def rate_limit_server_whitelist(server_id)
   server_list = ENV['RATE_LIMIT_SERVER_WHITELIST']&.split(',') || []
-  server_list.include?(server_id)
+  server_list.include?(server_id.to_s)
 end
 
 # Run the bot
