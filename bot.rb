@@ -71,6 +71,7 @@ end
 
 def rate_limit_server_whitelist(server_id)
   server_list = ENV['RATE_LIMIT_SERVER_WHITELIST']&.split(',') || []
+  puts server_list
   server_list.include?(server_id.to_s)
 end
 
