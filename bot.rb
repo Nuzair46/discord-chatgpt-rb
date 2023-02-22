@@ -20,7 +20,10 @@ openai_client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
 
 # Define a command that generates a response using ChatGPT
 client.command(:chat, description: 'Chat with ChatGPT') do |event, *prompt|
-  event.message.reply! 'You need to ask something.' if prompt.empty?
+  if prompt.empty?
+    event.message.reply! 'You need to ask something.'
+    next
+  end
   next if rate_limited?(event)
 
   # Use the OpenAI API to generate a response
@@ -45,7 +48,10 @@ end
 
 # use dalle to generate images
 client.command(:generate, description: 'Generate image with DALLE2') do |event, *prompt|
-  event.message.reply! 'You need to ask something.' if prompt.empty?
+  if prompt.empty?
+    event.message.reply! 'You need to ask something.'
+    next
+  end
   next if rate_limited?(event)
 
   response = openai_client.images.generate(parameters: { prompt: prompt.join(' ') })
@@ -56,8 +62,11 @@ end
 
 # meowGPT
 client.command(:meow, description: 'Meow with MeowGPT') do |event, *prompt|
+  if prompt.empty?
+    event.message.reply! 'Meow?'
+    next
+  end
   meow = 'meow'
-  event.message.reply! 'Meow?' if prompt.empty?
   count = prompt.split(' ').count
   basic_sentence = "#{meow} " * count
   stoppers = ['.', '?', '!']
