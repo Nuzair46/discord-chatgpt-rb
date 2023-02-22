@@ -52,6 +52,18 @@ rescue RestClient::BadRequest
   event.message.reply! 'Image generation failed, Probably you asked something too weird or low on credits.'
 end
 
+# meowGPT
+client.command(:meow, description: 'Meow with MeowGPT') do |_event, *_prompt|
+  meow = 'meow'
+  random = rand(1..15)
+  basic_sentence = "#{meow} " * random
+  stoppers = ['.', '?', '!']
+  stopper = stoppers.sample
+  sentence = "#{basic_sentence.strip}#{stopper}".capitalize
+  sentence = sentence.upcase if random <= 5 && ['.', '!'].include?(stopper)
+  event.message.reply! sentence
+end
+
 def rate_limited?(event)
   return false if skip_rate_limit?(event)
 
