@@ -67,7 +67,7 @@ client.command(:meow, description: 'Meow with MeowGPT') do |event, *prompt|
     next
   end
   meow = 'meow'
-  count = prompt.split(' ').count
+  count = prompt.count
   basic_sentence = "#{meow} " * count
   stoppers = ['.', '?', '!']
   stopper = stoppers.sample
