@@ -30,9 +30,9 @@ client.command(:chat, description: 'Chat with ChatGPT') do |event, *prompt|
 
   response = openai_client.completions(
     parameters: {
-      model: 'text-davinci-003',
+      model: 'gpt-3.5-turbo',
       prompt: prompt.join(' '),
-      max_tokens: 1024
+      max_tokens: 512
     }
   )
 
