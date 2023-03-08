@@ -27,12 +27,11 @@ client.command(:chat, description: 'Chat with ChatGPT') do |event, *prompt|
   next if rate_limited?(event)
 
   # Use the OpenAI API to generate a response
-
-  response = openai_client.completions(
+  response = openai_client.chat(
     parameters: {
       model: 'gpt-3.5-turbo',
-      prompt: prompt.join(' '),
-      max_tokens: 1024
+      messages: [{ role: 'user', content: prompt.join(' ') }],
+      temperature: 0.7
     }
   )
 
@@ -40,7 +39,7 @@ client.command(:chat, description: 'Chat with ChatGPT') do |event, *prompt|
   begin
     next event.message.reply! 'Low on credits.' if response['error']
 
-    event.message.reply! response['choices'][0]['text']
+    event.message.reply! response.dig('choices', 0, 'message', 'content')
   rescue Discordrb::Errors::MessageTooLong => e
     event.message.reply! e.message
   end
