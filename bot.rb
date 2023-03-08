@@ -32,7 +32,7 @@ client.command(:chat, description: 'Chat with ChatGPT') do |event, *prompt|
     parameters: {
       model: 'gpt-3.5-turbo',
       prompt: prompt.join(' '),
-      max_tokens: 512
+      max_tokens: 1024
     }
   )
 
